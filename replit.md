@@ -1,0 +1,36 @@
+# Workspace
+
+## Overview
+
+pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+
+## Stack
+
+- **Monorepo tool**: pnpm workspaces
+- **Node.js version**: 24
+- **Package manager**: pnpm
+- **TypeScript version**: 5.9
+- **API framework**: Express 5
+- **Database**: PostgreSQL + Drizzle ORM
+- **Validation**: Zod (`zod/v4`), `drizzle-zod`
+- **API codegen**: Orval (from OpenAPI spec)
+- **Build**: esbuild (CJS bundle)
+
+## Key Commands
+
+- `pnpm run typecheck` — full typecheck across all packages
+- `pnpm run build` — typecheck + build all packages
+- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
+- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- `pnpm --filter @workspace/api-server run dev` — run API server locally
+
+See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+
+## Artifacts
+
+- `artifacts/barber-lounge/` — Dexterous Barber Lounge marketing site (React + Vite, framer-motion). Imported from a Vercel project. Served at `/`. Single-page app with client-side state-based navigation between Home, Service, Portfolio, Contact, and About sections. Uses local images in `public/images/` and Square booking link.
+
+## Replit Setup
+
+- **Workflow**: `Start application` runs `PORT=5000 pnpm --filter @workspace/barber-lounge run dev`, exposing the Vite dev server on port 5000 (host `0.0.0.0`, all hosts allowed via `vite.config.ts`).
+- **Deployment**: Static — build via `pnpm --filter @workspace/barber-lounge run build`, served from `artifacts/barber-lounge/dist/public`.
